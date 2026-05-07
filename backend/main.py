@@ -567,7 +567,12 @@ def get_dashboard(
 #  SERVE REACT FRONTEND (production)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Serve the built React app from frontend/dist
-frontend_path = Path(__file__).parent.parent / "frontend" / "dist"
-if frontend_path.exists():
-    app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="frontend")
+# Serve the built React app
+# In Docker: files are in /app/static
+# In local dev: files are in ../frontend/dist
+static_path = Path(__file__).parent / "static"
+if not static_path.exists():
+    static_path = Path(__file__).parent.parent / "frontend" / "dist"
+if static_path.exists():
+    app.mount("/", StaticFiles(directory=str(static_path), html=True), name="frontend")
+

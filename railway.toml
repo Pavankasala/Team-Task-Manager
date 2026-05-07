@@ -1,6 +1,3 @@
 [build]
-builder = "nixpacks"
-
-[build.nixpacks]
-install_cmd = "cd backend && pip install -r requirements.txt && cd ../frontend && npm install && npm run build"
-start_cmd = "cd backend && uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
